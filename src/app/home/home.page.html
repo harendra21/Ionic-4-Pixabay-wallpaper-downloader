@@ -1,0 +1,84 @@
+<ion-header [translucent]="true">
+  <ion-toolbar>
+    <ion-title>
+      Home
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-icon name="search" (click)="searchActive=!searchActive" ></ion-icon>
+    </ion-buttons>
+    
+  </ion-toolbar>
+</ion-header>
+<ion-content [fullscreen]="true" class="padding">
+
+  <!-- <div class="ion-text-end">
+    <ion-button fill="outline" size="default" color="dark" (click)="onClearPad()">Clear</ion-button>
+    <ion-button fill="solid" size="default" color="danger" (click)="onCancel()">Cancel</ion-button>
+    <ion-button  fill="solid" size="default" color="primary" (click)="onSavePad()">Save</ion-button>
+  </div> -->
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8" *ngIf="searchActive">
+        <ion-searchbar showCancelButton="always" animated clearIcon="close-circle" autocorrect="on" class="search-area" (search)="search($event)" color="dark"></ion-searchbar>
+      </ion-col>
+      <ion-col size="{{ searchActive?'4':12 }}">
+        <div class="ion-text-end">
+          <ion-button fill="outline" size="default" class="small-button" *ngIf="view == 'grid'" (click)="view = 'list'" color="dark">
+            <ion-icon name="grid"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="outline" size="default" class="small-button" *ngIf="view == 'list'" (click)="view = 'grid'" color="dark">
+            <ion-icon name="list"></ion-icon>
+          </ion-button>
+
+          <ion-button fill="outline" size="default" class="small-button" color="dark" (click)="openFilterModal()">
+            <ion-icon name="filter"></ion-icon>
+          </ion-button>
+
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+  <ion-grid *ngIf="!loading">
+    <ion-row>
+      <ion-col size="{{ view == 'list' ? 6:12 }}" *ngFor="let image of hits">
+        <div class="img-container">
+          <img src="{{ image.previewURL }}" alt="{{ image.tags }}" class="{{ view == 'list' ? 'prev-image':'prev-image-grid' }}" (click)="previewImage(image.webformatURL,image.id)">
+          <ion-row>
+            <ion-col size="6">
+              <ion-button expand="block" fill="solid" size="small" class="small-button" (click)="downloadImage(image.webformatURL,image.id,'sd')">
+                <ion-icon slot="start" name="arrow-down-circle-outline"></ion-icon> SD
+              </ion-button>
+            </ion-col>
+            <ion-col size="6">
+              <ion-button expand="block" fill="solid" size="small" class="small-button" (click)="downloadImage(image.largeImageURL,image.id,'hd')">
+                <ion-icon slot="start" name="arrow-down-circle-outline"></ion-icon> HD
+              </ion-button>
+            </ion-col>
+          </ion-row>
+        </div>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="6">
+        <ion-button [disabled]="parms.page <= 1" fill="solid" expand="block" size="small" (click)="prevPage()">
+          <ion-icon slot="start" name="arrow-back-circle-outline"></ion-icon> Prev
+        </ion-button>
+      </ion-col>
+      <ion-col size="6">
+        <ion-button fill="solid" size="small" expand="block" (click)="nextPage()">
+          <ion-icon slot="start" name="arrow-forward-circle-outline"></ion-icon> Next
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-grid *ngIf="loading">
+    <ion-row>
+      <ion-col size="12" class="text-center loader">
+        <ion-spinner name="dots"></ion-spinner>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  
+</ion-content>

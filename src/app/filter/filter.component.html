@@ -1,0 +1,42 @@
+<ion-icon (click)="closeFilter()" name="close" class="close-icon"></ion-icon>
+<ion-content *ngIf="parms != null">
+  <ion-select value="{{ parms.order }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.order">
+    <ion-select-option value="">Sort By</ion-select-option>
+    <ion-select-option value="popular">Popular</ion-select-option>
+    <ion-select-option value="latest">Latest</ion-select-option>
+  </ion-select>
+
+  <ion-select value="{{ parms.image_type }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.image_type">
+    <ion-select-option value="">Image Type</ion-select-option>
+    <ion-select-option value="all">All</ion-select-option>
+    <ion-select-option value="photo">Photo</ion-select-option>
+    <ion-select-option value="illustration">Illustration</ion-select-option>
+    <ion-select-option value="vector">Vector</ion-select-option>
+  </ion-select>
+
+  <ion-select value="{{ parms.category }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.category">
+    <ion-select-option value="">Category</ion-select-option>
+    <ion-select-option *ngFor="let cat of categories" value="{{ cat }}">{{ cat | titlecase }}</ion-select-option>
+  </ion-select>
+
+  <ion-select value="{{ parms.colors }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.colors">
+    <ion-select-option value="">Colors</ion-select-option>
+    <ion-select-option *ngFor="let col of colors" value="{{ col }}">{{ col | titlecase }}</ion-select-option>
+  </ion-select>
+
+  <ion-select value="{{ parms.lang }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.lang">
+    <ion-select-option value="">Language</ion-select-option>
+    <ion-select-option *ngFor="let lan of languages" value="{{ lan }}">{{ lan | titlecase }}</ion-select-option>
+  </ion-select>
+
+  <ion-select value="{{ parms.per_page }}" okText="Okay" cancelText="Dismiss" [(ngModel)]="parms.per_page">
+    <ion-select-option value="">Per Page</ion-select-option>
+    <ion-select-option value="10">10</ion-select-option>
+    <ion-select-option value="20">20</ion-select-option>
+    <ion-select-option value="50">50</ion-select-option>
+    <ion-select-option value="100">100</ion-select-option>
+  </ion-select>
+
+  <ion-button (click)="applyFilter()">Apply</ion-button>
+
+</ion-content>

@@ -1,0 +1,8 @@
+{
+  "name": "cap_demo",
+  "integrations": {
+    "capacitor": {},
+    "cordova": {}
+  },
+  "type": "angular"
+}
